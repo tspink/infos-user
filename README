@@ -1,0 +1,21 @@
+InfOS User-space Implementation
+=========================================================================
+
+The InfOS user-space implementation contains a number of simple programs to
+run on top of the InfOS kernel.
+
+When InfOS boots, it will start the shell, which allows you to launch other
+programs.  You can even launch a new shell, within a shell.
+
+The shell is very basic, and doesn't support path resolution, so you must
+qualify every program you want to run with the full path.  All the programs
+live in the /usr directory, so to run a program you would enter the following,
+the '>' being the shell prompt:
+
+   > /usr/ls
+
+To view this README file inside InfOS (which you might be doing right now!)
+execute the following command:
+
+   > /usr/cat /usr/README
+
