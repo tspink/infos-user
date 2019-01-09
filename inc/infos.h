@@ -42,7 +42,9 @@ enum class Syscall
 	SYS_CREATE_THREAD = 12,
 	SYS_STOP_THREAD = 13,
 	SYS_JOIN_THREAD = 14,
-	SYS_USLEEP = 15
+	SYS_USLEEP = 15,
+	
+	SYS_GET_TOD = 16
 };
 
 typedef unsigned long HANDLE;
@@ -86,6 +88,12 @@ extern HTHREAD create_thread(ThreadProc tp, void *arg);
 extern void stop_thread(HTHREAD thread);
 extern void join_thread(HTHREAD thread);
 extern void usleep(unsigned long us);
+
+struct tod {
+	unsigned short seconds, minutes, hours, weekday, day_of_month, month, year;
+};
+
+extern int get_time_of_day(struct tod *t);
 
 #define va_start(v,l)   __builtin_va_start(v,l)
 #define va_end(v)       __builtin_va_end(v)

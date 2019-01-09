@@ -36,3 +36,8 @@ void closedir(HDIR dir)
 {
 	syscall(Syscall::SYS_CLOSEDIR, (unsigned long)dir);
 }
+
+int get_time_of_day(struct tod *t)
+{
+	return (int)syscall(Syscall::SYS_GET_TOD, (unsigned long)t);
+}
