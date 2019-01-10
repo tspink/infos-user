@@ -90,7 +90,7 @@ extern void join_thread(HTHREAD thread);
 extern void usleep(unsigned long us);
 
 struct tod {
-	unsigned short seconds, minutes, hours, weekday, day_of_month, month, year;
+	unsigned short seconds, minutes, hours, day_of_month, month, year;
 };
 
 extern int get_time_of_day(struct tod *t);
