@@ -43,8 +43,9 @@ enum class Syscall
 	SYS_STOP_THREAD = 13,
 	SYS_JOIN_THREAD = 14,
 	SYS_USLEEP = 15,
-	
-	SYS_GET_TOD = 16
+
+	SYS_GET_TOD = 16,
+	SYS_SET_THREAD_NAME = 17
 };
 
 typedef unsigned long HANDLE;
@@ -87,6 +88,7 @@ typedef void (*ThreadProc)(void *);
 extern HTHREAD create_thread(ThreadProc tp, void *arg);
 extern void stop_thread(HTHREAD thread);
 extern void join_thread(HTHREAD thread);
+extern void set_thread_name(HTHREAD thread, const char *name);
 extern void usleep(unsigned long us);
 
 struct tod {

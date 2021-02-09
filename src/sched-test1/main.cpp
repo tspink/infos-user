@@ -6,6 +6,10 @@ static void thread_proc(void *arg)
 {
 	unsigned int thread_num = (unsigned int)(unsigned long)arg;
 
+	char name_buffer[16] = {0};
+	sprintf(name_buffer, "thread/%d", thread_num);
+	set_thread_name(HTHREAD_SELF, name_buffer);
+
 	printf("Thread %d Running!\n", thread_num);
 
 	usleep(1500000 + (thread_num * 500000));

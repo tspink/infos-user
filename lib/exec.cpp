@@ -27,6 +27,11 @@ void join_thread(HTHREAD thread)
 	syscall(Syscall::SYS_JOIN_THREAD, thread);
 }
 
+void set_thread_name(HTHREAD thread, const char *name)
+{
+	syscall(Syscall::SYS_SET_THREAD_NAME, thread, (unsigned long)name);
+}
+
 void usleep(unsigned long us)
 {
 	syscall(Syscall::SYS_USLEEP, us);
