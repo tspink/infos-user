@@ -45,7 +45,11 @@ enum class Syscall
 	SYS_USLEEP = 15,
 
 	SYS_GET_TOD = 16,
-	SYS_SET_THREAD_NAME = 17
+	SYS_SET_THREAD_NAME = 17,
+	SYS_GET_TICKS = 18,
+
+	SYS_PREAD = 19,
+	SYS_PWRITE = 20
 };
 
 typedef unsigned long HANDLE;
@@ -62,12 +66,15 @@ extern unsigned long syscall(Syscall nr);
 extern unsigned long syscall(Syscall nr, unsigned long a1);
 extern unsigned long syscall(Syscall nr, unsigned long a1, unsigned long a2);
 extern unsigned long syscall(Syscall nr, unsigned long a1, unsigned long a2, unsigned long a3);
+extern unsigned long syscall(Syscall nr, unsigned long a1, unsigned long a2, unsigned long a3, unsigned long a4);
 
 extern void exit(int exit_code) __attribute__((noreturn));
 
 extern HFILE open(const char *filename, int flags);
 extern int read(HFILE file, char *buffer, size_t size);
 extern int write(HFILE file, const char *buffer, size_t size);
+extern int pread(HFILE file, char *buffer, size_t size, off_t off);
+extern int pwrite(HFILE file, const char *buffer, size_t size, off_t off);
 extern void close(HFILE file);
 
 struct dirent
@@ -96,6 +103,7 @@ struct tod {
 };
 
 extern int get_time_of_day(struct tod *t);
+extern uint64_t get_ticks();
 
 #define va_start(v,l)   __builtin_va_start(v,l)
 #define va_end(v)       __builtin_va_end(v)
