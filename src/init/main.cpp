@@ -4,8 +4,8 @@
 
 int main(const char *cmdline)
 {
-	printf("Welcome to InfOS!\nStarting the system...\n");
-	
+	printf("\33\x0eWelcome to InfOS!\n\33\x07Starting the system...\n");
+
 	while (true) {
 		HPROC shell_proc = exec("/usr/shell", NULL);
 		if (is_error(shell_proc)) {
@@ -18,6 +18,6 @@ int main(const char *cmdline)
 		printf("SHELL TERMINATED!  PRESS ENTER TO RESTART\n");
 		while (getch() != '\n');
 	}
-	
+
 	return 0;
 }
