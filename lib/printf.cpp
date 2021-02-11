@@ -5,7 +5,7 @@
 int printf(const char *fmt, ...)
 {
 	char buffer[0x1000];
-	
+
 	int rc;
 	va_list args;
 
@@ -14,7 +14,7 @@ int printf(const char *fmt, ...)
 	va_end(args);
 
 	write(__console_handle, buffer, rc);
-	
+
 	return rc;
 }
 
@@ -191,6 +191,19 @@ retry_format:
 				break;
 			}
 
+			case 'f':
+			{
+				unsigned long v;
+
+				double d = (double)va_arg(args, double);
+				v = *(unsigned long *)(&d);
+
+				rc = append_num(buffer, size - 1 - count, v, 16, false, pad_size, pad_char);
+				count += rc;
+				buffer += rc;
+				break;
+			}
+
 			case 'l':
 				number_size = 8;
 				goto retry_format;
@@ -207,7 +220,7 @@ retry_format:
 				buffer++;
 				count++;
 				break;
-				
+
 			default:
 				*buffer = *fmt;
 
@@ -234,11 +247,11 @@ retry_format:
 char getch()
 {
 	char buffer;
-	
+
 	int r = 0;
 	while (r < 1) {
 		r = read(__console_handle, &buffer, 1);
 	}
-	
+
 	return buffer;
 }
