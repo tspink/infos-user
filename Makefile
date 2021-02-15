@@ -8,32 +8,32 @@ export src-dir := $(top-dir)/src
 export bin-dir := $(top-dir)/bin
 
 lib-target := libinfos.a
-tool-targets := init ls shell sched-test1 sched-test2 cat date tictactoe
-	
+tool-targets := init ls shell sched-test1 sched-test2 sched-test3 cat date tictactoe time
+
 export real-lib-target   := $(bin-dir)/$(lib-target)
 real-tool-targets := $(patsubst %,$(bin-dir)/%,$(tool-targets))
 real-tool-clean-targets := $(patsubst %,__clean__$(bin-dir)/%,$(tool-targets))
-	
+
 lib-srcs := $(shell find $(lib-dir) | grep -E "\.cpp$$")
 lib-objs := $(lib-srcs:.cpp=.o)
 lib-cxxflags := -g -Wall -Wno-main -nostdlib -nostdinc -std=gnu++17 -O3 -I$(inc-dir) -fno-builtin -ffreestanding -mno-sse -mno-avx -fno-stack-protector
-	
+
 fs-target := $(bin-dir)/rootfs.tar
-	
+
 export BUILD-TARGET = $(patsubst $(top-dir)/%,%,$@)
 
 all: $(real-lib-target) $(real-tool-targets)
-	
+
 clean: $(real-tool-clean-targets)
 	@echo "  RM    $(real-lib-target) $(lib-objs) $(real-tool-targets)"
 	$(q)rm -f $(real-lib-target) $(lib-objs) $(real-tool-targets)
-	
+
 fs: $(fs-target)
-	
+
 $(real-lib-target): $(bin-dir) $(lib-objs)
 	@echo "  AR      $(BUILD-TARGET)"
 	$(q)ar rcs $@ $(lib-objs)
-	
+
 $(bin-dir):
 	mkdir $@
 
