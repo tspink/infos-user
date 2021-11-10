@@ -5,8 +5,10 @@ export tool-src-dir := $(src-dir)/$(tool-name)
 tool-srcs := $(shell find $(tool-src-dir) | grep -E "\.cpp$$")
 tool-objs := $(tool-srcs:.cpp=.o)
 
-tool-cflags  := -g -Wall -O3 -nostdlib -nostdinc -std=gnu++17 -I$(inc-dir) -ffreestanding -mno-sse -mno-avx -fno-stack-protector
-tool-ldflags := -static -nostdlib -nostdinc
+common-cflags := -std=gnu++20 -g -Wall -O3 -nostdlib -nostdinc -ffreestanding -fno-stack-protector -mno-sse -mno-avx -no-pie
+tool-cflags   := $(common-cflags) -I$(inc-dir)
+tool-ldflags  := $(common-cflags) -static
+# -Wl,-dynamic-linker,__INFOS_DYNAMIC_LINKER__
 
 export BUILD-TARGET = $(patsubst $(top-dir)/%,%,$@)
 
@@ -16,9 +18,10 @@ clean:
 	@echo "  RM    $(tool-out) $(tool-objs)"
 	$(q)rm -f $(tool-out) $(tool-objs)
 
-$(tool-out): $(real-lib-target) $(tool-objs)
+$(tool-out): $(real-lib-target) $(real-crt-target) $(tool-objs)
 	@echo "  LD      $(BUILD-TARGET)"
-	$(q)g++ -o $@ $(tool-ldflags) $(tool-objs) $(real-lib-target)
+	$(q)g++ -o $@ $(tool-ldflags) $(tool-objs) $(real-crt-target) $(real-lib-target)
+# -L$(bin-dir) -linfos
 
 $(tool-objs): %.o: %.cpp
 	@echo "  C++     $(BUILD-TARGET)"

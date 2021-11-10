@@ -193,14 +193,14 @@ retry_format:
 
 			case 'f':
 			{
-				unsigned long v;
+				/*unsigned long v;
 
 				double d = (double)va_arg(args, double);
 				v = *(unsigned long *)(&d);
 
 				rc = append_num(buffer, size - 1 - count, v, 16, false, pad_size, pad_char);
 				count += rc;
-				buffer += rc;
+				buffer += rc;*/
 				break;
 			}
 
