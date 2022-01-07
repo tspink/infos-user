@@ -53,6 +53,15 @@ enum class Syscall
 	SYS_FUTEX_WAIT = 21,
 };
 
+enum SchedulingEntityPriority
+{
+    REALTIME = 0,
+    INTERACTIVE = 1,
+    NORMAL = 2,
+    DAEMON = 3,
+    IDLE = 4,
+};
+
 typedef unsigned long HANDLE;
 typedef HANDLE HFILE;
 typedef HANDLE HDIR;
@@ -146,7 +155,7 @@ extern HPROC exec(const char *filename, const char *args);
 extern void wait_proc(HPROC proc);
 
 typedef void (*ThreadProc)(void *);
-extern HTHREAD create_thread(ThreadProc tp, void *arg);
+extern HTHREAD create_thread(ThreadProc tp, void *arg, SchedulingEntityPriority priority = SchedulingEntityPriority::NORMAL);
 extern void stop_thread(HTHREAD thread);
 extern void join_thread(HTHREAD thread);
 extern void set_thread_name(HTHREAD thread, const char *name);
