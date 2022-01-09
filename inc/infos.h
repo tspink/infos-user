@@ -75,6 +75,16 @@ static inline bool is_error(HANDLE h)
 	return h == (HANDLE)-1;
 }
 
+static inline int fetch_and_add(int* variable, int value)
+{
+    asm volatile("lock; xaddl %0, %1"
+    : "+r" (value), "+m" (*variable) // input + output
+    : // No input-only
+    : "memory"
+    );
+    return value;
+}
+
 /*extern unsigned long syscall(Syscall nr);
 extern unsigned long syscall(Syscall nr, unsigned long a1);
 extern unsigned long syscall(Syscall nr, unsigned long a1, unsigned long a2);
