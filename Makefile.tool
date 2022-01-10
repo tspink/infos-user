@@ -5,7 +5,7 @@ export tool-src-dir := $(src-dir)/$(tool-name)
 tool-srcs := $(shell find $(tool-src-dir) | grep -E "\.cpp$$")
 tool-objs := $(tool-srcs:.cpp=.o)
 
-common-cflags := -std=gnu++20 -g -Wall -O3 -nostdlib -nostdinc -ffreestanding -fno-stack-protector -mno-sse -mno-avx -no-pie
+common-cflags := -std=gnu++17 -g -Wall -O3 -nostdlib -nostdinc -ffreestanding -fno-stack-protector -mno-sse -mno-avx -no-pie
 tool-cflags   := $(common-cflags) -I$(inc-dir)
 tool-ldflags  := $(common-cflags) -static
 # -Wl,-dynamic-linker,__INFOS_DYNAMIC_LINKER__
