@@ -12,11 +12,11 @@ static void sleep_thread_proc(void *arg)
 	sprintf(name_buffer, "thread/%d", thread_num);
 	set_thread_name(HTHREAD_SELF, name_buffer);
 
-	printf("Thread %d Running!\n", thread_num);
+	printf("Thread %d running!\n", thread_num);
 
 	usleep(1500000 + (thread_num * 500000));
 
-	printf("Thread %d Stopping!\n", thread_num);
+	printf("Thread %d stopping!\n", thread_num);
 
 	stop_thread(HTHREAD_SELF);
 }
@@ -67,6 +67,8 @@ static void fibonacci_thread_proc(void *arg) {
         f2 = fi;
         printf("F%u: %u\n", i, fi);
     }
+
+    stop_thread(HTHREAD_SELF);
 }
 
 static void tribonacci_thread_proc(void *arg) {
@@ -86,11 +88,13 @@ static void tribonacci_thread_proc(void *arg) {
         t3 = ti;
         printf("T%u: %u\n", i, ti);
     }
+
+    stop_thread(HTHREAD_SELF);
 }
 
 int main(const char *cmdline)
 {
-	printf("Running Scheduler Test!\n");
+    printf("Running scheduler test with priorities!\n");
 
     terminate = false;
 
@@ -112,7 +116,7 @@ int main(const char *cmdline)
 		join_thread(threads[i]);
 	}
 
-	printf("Scheduler Test Complete\n");
+    printf("Scheduler test complete!\n");
 
 	return 0;
 }
