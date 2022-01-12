@@ -4,6 +4,6 @@
 
 int main(const char *cmdline)
 {
-    not_implemented();
+    // TODO: print "Hello, world!\n"
     return 0;
 }
