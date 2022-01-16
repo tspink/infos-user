@@ -1,4 +1,7 @@
-/* SPDX-License-Identifier: MIT */
+/*
+ * "Hello, world!"
+ * SKELETON IMPLEMENTATION TO BE FILLED IN FOR TASK 0
+ */
 
 #include <infos.h>
 
