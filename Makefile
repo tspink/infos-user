@@ -10,7 +10,7 @@ export bin-dir := $(top-dir)/bin
 
 crt-target := crt.a
 lib-target := libinfos.a
-tool-targets := init ls shell sched-test1 sched-test2 sched-test3 cat date tictactoe time
+tool-targets := init ls tree shell prio-sched-test sleep-sched-test ticker-sched-test hello-world mandelbrot cat date tictactoe time
 
 export real-crt-target   := $(bin-dir)/$(crt-target)
 export real-lib-target   := $(bin-dir)/$(lib-target)
@@ -19,11 +19,11 @@ real-tool-clean-targets := $(patsubst %,__clean__$(bin-dir)/%,$(tool-targets))
 
 crt-srcs := $(shell find $(crt-dir) | grep -E "\.cpp$$")
 crt-objs := $(crt-srcs:.cpp=.o)
-crt-cxxflags := -g -Wall -Wno-main -no-pie -nostdlib -nostdinc -std=gnu++20 -O3 -I$(inc-dir) -fno-builtin -ffreestanding -mno-sse -mno-avx -fno-stack-protector
+crt-cxxflags := -g -Wall -Wno-main -no-pie -nostdlib -nostdinc -std=gnu++17 -O3 -I$(inc-dir) -fno-builtin -ffreestanding -mno-sse -mno-avx -fno-stack-protector
 
 lib-srcs := $(shell find $(lib-dir) | grep -E "\.cpp$$")
 lib-objs := $(lib-srcs:.cpp=.o)
-lib-cxxflags := -shared -g -Wall -Wno-main -nostdlib -nostdinc -std=gnu++20 -O3 -I$(inc-dir) -fno-builtin -ffreestanding -mno-sse -mno-avx -fno-stack-protector -fPIC
+lib-cxxflags := -shared -g -Wall -Wno-main -nostdlib -nostdinc -std=gnu++17 -O3 -I$(inc-dir) -fno-builtin -ffreestanding -mno-sse -mno-avx -fno-stack-protector -fPIC
 lib-ldflags :=
 
 fs-target := $(bin-dir)/rootfs.tar

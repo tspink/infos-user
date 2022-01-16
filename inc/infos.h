@@ -53,6 +53,15 @@ enum class Syscall
 	SYS_FUTEX_WAIT = 21,
 };
 
+enum SchedulingEntityPriority
+{
+    REALTIME = 0,
+    INTERACTIVE = 1,
+    NORMAL = 2,
+    DAEMON = 3,
+    IDLE = 4,
+};
+
 typedef unsigned long HANDLE;
 typedef HANDLE HFILE;
 typedef HANDLE HDIR;
@@ -64,6 +73,16 @@ typedef HANDLE HTHREAD;
 static inline bool is_error(HANDLE h)
 {
 	return h == (HANDLE)-1;
+}
+
+static inline int fetch_and_add(int* variable, int value)
+{
+    asm volatile("lock; xaddl %0, %1"
+    : "+r" (value), "+m" (*variable) // input + output
+    : // No input-only
+    : "memory"
+    );
+    return value;
 }
 
 /*extern unsigned long syscall(Syscall nr);
@@ -146,7 +165,7 @@ extern HPROC exec(const char *filename, const char *args);
 extern void wait_proc(HPROC proc);
 
 typedef void (*ThreadProc)(void *);
-extern HTHREAD create_thread(ThreadProc tp, void *arg);
+extern HTHREAD create_thread(ThreadProc tp, void *arg, SchedulingEntityPriority priority = SchedulingEntityPriority::NORMAL);
 extern void stop_thread(HTHREAD thread);
 extern void join_thread(HTHREAD thread);
 extern void set_thread_name(HTHREAD thread, const char *name);

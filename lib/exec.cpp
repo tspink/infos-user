@@ -12,9 +12,9 @@ void wait_proc(HPROC proc)
 	syscall(Syscall::SYS_WAIT_PROC, proc);
 }
 
-HTHREAD create_thread(ThreadProc tp, void *arg)
+HTHREAD create_thread(ThreadProc tp, void *arg, SchedulingEntityPriority priority)
 {
-	return (HTHREAD)syscall(Syscall::SYS_CREATE_THREAD, (unsigned long)tp, (unsigned long)arg);
+    return (HTHREAD)syscall(Syscall::SYS_CREATE_THREAD, (unsigned long)tp, (unsigned long)arg, (unsigned long)priority);
 }
 
 void stop_thread(HTHREAD thread)
