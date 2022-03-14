@@ -100,7 +100,7 @@ int main(const char *cmdline)
 
     HTHREAD threads[15];
 	printf("Using %d threads...\n", ARRAY_SIZE(threads));
-	for (unsigned int i = 0; i < ARRAY_SIZE(threads); i++) {
+	for (unsigned int i = 0; i < 10; i++) {
 		threads[i] = create_thread(sleep_thread_proc, (void *)(unsigned long)i, SchedulingEntityPriority::REALTIME);
 	}
 
