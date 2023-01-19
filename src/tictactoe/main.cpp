@@ -25,7 +25,7 @@ void reset() {
 bool full() {
     for (unsigned char i = 0; i < boardDim; ++i) {
         for (unsigned char j = 0; j < boardDim; ++j) {
-            if (board[i][j] != empty) {
+            if (board[i][j] == empty) {
                 return false;
             }
         }
