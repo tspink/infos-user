@@ -12,7 +12,7 @@ static int dump_system_time(bool ol)
 		return rc;
 	}
 
-	printf("the current system date & time is: \33\x0b%02u/%02u/%u \33\x0a%02u:%02u:%02u\33\x07%c", t.day_of_month, t.month, t.year, t.hours, t.minutes, t.seconds, ol ? '\r' : '\n');
+	printf("the current system date & time is: \33[96m%02u/%02u/%u \33[39m%02u:%02u:%02u\33[39m%c", t.day_of_month, t.month, t.year, t.hours, t.minutes, t.seconds, ol ? '\r' : '\n');
 	return 0;
 }
 

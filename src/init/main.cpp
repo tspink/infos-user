@@ -4,7 +4,7 @@
 
 int main(const char *cmdline)
 {
-	printf("\33\x0cWelcome to InfOS!\n\33\x09Starting the system...\n");
+	printf("\33[91mWelcome to InfOS!\n\33[39mStarting the system...\n");
 
 	while (true) {
 		HPROC shell_proc = exec("/usr/shell", NULL);
