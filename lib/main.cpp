@@ -8,7 +8,7 @@ HFILE __console_handle;
 
 void infos_main(const char *cmdline)
 {
-    __console_handle = open("/dev/console", 0);
+    __console_handle = open("/dev/tty0", 0);
     if (is_error(__console_handle))
         exit(1);
 
